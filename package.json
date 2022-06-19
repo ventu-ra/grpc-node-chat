@@ -1,0 +1,22 @@
+{
+  "name": "grpcnodeserver",
+  "version": "1.0.1",
+  "description": "Chat example using grpc and node",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --expose-http2 server.js"
+  },
+  "keywords": [
+    "grpc",
+    "protocol",
+    "buffers",
+    "rpc"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.3.0",
+    "grpc": "^1.24.11"
+  }
+}
