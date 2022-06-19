@@ -70,7 +70,7 @@ function notifyChat(message) {
 }
 
 // Define o servidor com os métodos e inicia
-server.addService(proto.example.Chat.service, { join: join, send: send, listUsers: listUsers, getAllUsers: (call, callback) => {
+server.addService(proto.unesc.Chat.service, { join: join, send: send, listUsers: listUsers, getAllUsers: (call, callback) => {
   console.log(usuarios);
   callback(null, usuarios);
 } });
