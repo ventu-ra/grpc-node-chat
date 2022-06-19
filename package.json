@@ -13,13 +13,7 @@
     "buffers",
     "rpc"
   ],
-  "author": {
-    "name": [
-      "Felipe Costa",
-      "Pedro Ventura"
-    ],
-    "email": "https://github.com/Felipe-Cjesus/grpc-node-chat"
-  },
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "@grpc/proto-loader": "^0.3.0",
