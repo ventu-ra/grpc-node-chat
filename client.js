@@ -46,6 +46,7 @@ let client = new proto.unesc.Chat(
 // Inicializa a transmissão entre o servidor e o cliente
 function startChat() {
   let channel = client.join({ user: username });
+  console.log(channel);
   client.send({ user: username, text: "::. Entrou no servidor .::" }, res => {});
 
   channel.on("data", onData);
@@ -58,6 +59,7 @@ function startChat() {
 
 // Quando servidor envia uma mensagem
 function onData(message) {
+  
   if (message.user == username) 
   {
     if(!LGerr)
@@ -78,5 +80,14 @@ function onData(message) {
 rl.question("Qual seu nome? ", answer => {
   username = answer; 
 
+  //verificaUsers(username);
+  
   startChat();
 });
+
+
+/* function verificaUsers(username)
+{
+  console.log(client); 
+  return;
+} */

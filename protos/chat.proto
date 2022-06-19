@@ -1,6 +1,6 @@
-syntax = "proto3"; //Specify proto3 version.
+syntax = "proto3";
 
-package unesc; //Optional: unique package name.
+package unesc;
 
 service Chat {
     rpc join(stream Message) returns (stream Message){}

@@ -22,7 +22,6 @@ let LGinsere = false;
 // Recebe mensagem do cliente ao entrar no servidor
 function join(call, callback) {
   users.push(call);
-  //notifyChat({ user: "Server", text: "Novo usuário entrou no chat ..." });
 }
 
 function listUsers(call, callback) {
@@ -42,7 +41,6 @@ function listUsers(call, callback) {
   }
 
 }
-
 
 // Receba mensagem do usuario cliente
 function send(call, callback) {
