@@ -42,17 +42,16 @@ let client = new proto.unesc.Chat(
 );
 
 
-
 // Inicializa a transmissão entre o servidor e o cliente
 function startChat() {
-  let channel = client.join({ user: username });
-  console.log(channel);
-  client.send({ user: username, text: "::. Entrou no servidor .::" }, res => {});
+  let channel = client.entrar({ user: username });
+  
+  client.enviar({ user: username, text: "::. Entrou no servidor .::" }, res => {});
 
   channel.on("data", onData);
 
   rl.on("line", function(text) {
-    client.send({ user: username, text: text }, res => {});
+    client.enviar({ user: username, text: text }, res => {});
   });
 }
 
