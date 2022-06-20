@@ -1,6 +1,7 @@
 let grpc = require("grpc");
 var protoLoader = require("@grpc/proto-loader");
 var readline = require("readline");
+const { exit } = require("process");
 
 var data = new Date();
 var dia     = data.getDate();
@@ -44,15 +45,34 @@ let client = new proto.unesc.Chat(
 
 // Inicializa a transmissão entre o servidor e o cliente
 function startChat() {
-  let channel = client.entrar({ user: username });
-  
-  client.enviar({ user: username, text: "::. Entrou no servidor .::" }, res => {});
+  try 
+  {
+    let channel = client.entrar({ user: username });
+    
+    client.enviar({ user: username, text: "::. Entrou no servidor .::" }, res => {});
 
-  channel.on("data", onData);
+    channel.on("data", onData);
+    
+    rl.on("line", function(text) {
+        if(text == "")
+          return;
+        
+        if(text == "exit")
+        {
+          client.enviar({ user: username, text: "exit" }, res => {});
+          //exit();
+          //throw "Usuario vazou";
+        }
+        else
+          client.enviar({ user: username, text: text }, res => {});
+    });
 
-  rl.on("line", function(text) {
-    client.enviar({ user: username, text: text }, res => {});
-  });
+  }
+  catch (e) 
+  {
+    console.error(e);
+  }
+
 }
 
 
@@ -72,6 +92,7 @@ function onData(message) {
   }
 
   console.log(`${message.user}: ${message.text}` + "         " + str_data + " às " + str_hora);
+
 }
 
 

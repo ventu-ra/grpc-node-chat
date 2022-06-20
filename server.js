@@ -18,6 +18,7 @@ let proto = grpc.loadPackageDefinition(
 let users = [];
 const usuarios = [];
 let LGinsere = false;
+let LGsair = false;
 
 // Recebe mensagem do cliente ao entrar no servidor
 function entrar(call, callback) {
@@ -43,17 +44,22 @@ function listarUsuarios(call, callback) {
 }
 
 // Receba mensagem do usuario cliente
-function enviar(call, callback) {
+function enviar(call, callback) {  
   enviar_msg_Todos(call.request);
+      
 }
 
 // Envia a mensagem para todos os usuarios conectados ao client
 function enviar_msg_Todos(message) {
   users.forEach(user => {
+    if(message.text == "exit")
+    {
+      message.text = "::. " + message.user + " saiu do servidor.::";
+      LGsair = true;
+    }
     // console.log(message.user);
     user.write(message);
   });
-
 
   if(usuarios.includes(message.user))
   {
