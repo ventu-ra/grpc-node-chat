@@ -4,15 +4,10 @@ var readline = require("readline");
 const { exit } = require("process");
 
 var data = new Date();
-var dia     = data.getDate();
-var mes     = data.getMonth();
-var ano     = data.getFullYear();
-var hora    = data.getHours();  
-var min     = data.getMinutes();    
-var seg     = data.getSeconds();
+
 // Formata a data e a hora
-var str_data = dia + '/' + (mes+1) + '/' + ano;
-var str_hora = hora + ':' + min + ':' + seg;
+var str_data = data.toLocaleDateString();
+var str_hora = data.toLocaleTimeString();
 
 var LGerr = false;
 
@@ -36,7 +31,7 @@ const REMOTE_SERVER = "0.0.0.0:5001";
 
 let username;
 
-// Cria gRPC Cliente 
+// Cria gRPC Cliente
 let client = new proto.unesc.Chat(
   REMOTE_SERVER,
   grpc.credentials.createInsecure()
@@ -45,31 +40,28 @@ let client = new proto.unesc.Chat(
 
 // Inicializa a transmissão entre o servidor e o cliente
 function startChat() {
-  try 
-  {
+  try {
     let channel = client.entrar({ user: username });
-    
-    client.enviar({ user: username, text: "::. Entrou no servidor .::" }, res => {});
+
+    client.enviar({ user: username, text: "::. Entrou no servidor .::" }, res => { });
 
     channel.on("data", onData);
-    
-    rl.on("line", function(text) {
-        if(text == "")
-          return;
-        
-        if(text == "exit")
-        {
-          client.enviar({ user: username, text: "exit" }, res => {});
-          //exit();
-          //throw "Usuario vazou";
-        }
-        else
-          client.enviar({ user: username, text: text }, res => {});
+
+    rl.on("line", function (text) {
+      if (text == "")
+        return;
+
+      if (text == "exit") {
+        client.enviar({ user: username, text: "exit" }, res => { });
+        //exit();
+        //throw "Usuario vazou";
+      }
+      else
+        client.enviar({ user: username, text: text }, res => { });
     });
 
   }
-  catch (e) 
-  {
+  catch (e) {
     console.error(e);
   }
 
@@ -78,11 +70,9 @@ function startChat() {
 
 // Quando servidor envia uma mensagem
 function onData(message) {
-  
-  if (message.user == username) 
-  {
-    if(!LGerr)
-    {
+
+  if (message.user == username) {
+    if (!LGerr) {
       console.log("Olá " + username + " envie uma mensagem ...");
       LGerr = true;
       return;
@@ -98,16 +88,16 @@ function onData(message) {
 
 // Pergunta qual o nome do usuário quando inicializa o chat
 rl.question("Qual seu nome? ", answer => {
-  username = answer; 
+  username = answer;
 
   //verificaUsers(username);
-  
+
   startChat();
 });
 
 
 /* function verificaUsers(username)
 {
-  console.log(client); 
+  console.log(client);
   return;
 } */
