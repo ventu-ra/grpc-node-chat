@@ -18,14 +18,14 @@ let proto = grpc.loadPackageDefinition(
 let users = [];
 const usuarios = [];
 let LGinsere = false;
+let LGsair = false;
 
 // Recebe mensagem do cliente ao entrar no servidor
-function join(call, callback) {
+function entrar(call, callback) {
   users.push(call);
-  //notifyChat({ user: "Server", text: "Novo usuário entrou no chat ..." });
 }
 
-function listUsers(call, callback) {
+function listarUsuarios(call, callback) {
 
   if(usuarios.length == 0)
   {
@@ -43,19 +43,23 @@ function listUsers(call, callback) {
 
 }
 
-
 // Receba mensagem do usuario cliente
-function send(call, callback) {
-  notifyChat(call.request);
+function enviar(call, callback) {  
+  enviar_msg_Todos(call.request);
+      
 }
 
 // Envia a mensagem para todos os usuarios conectados ao client
-function notifyChat(message) {
+function enviar_msg_Todos(message) {
   users.forEach(user => {
+    if(message.text == "exit")
+    {
+      message.text = "::. " + message.user + " saiu do servidor.::";
+      LGsair = true;
+    }
     // console.log(message.user);
     user.write(message);
   });
-
 
   if(usuarios.includes(message.user))
   {
@@ -70,7 +74,7 @@ function notifyChat(message) {
 }
 
 // Define o servidor com os métodos e inicia
-server.addService(proto.unesc.Chat.service, { join: join, send: send, listUsers: listUsers, getAllUsers: (call, callback) => {
+server.addService(proto.unesc.Chat.service, { entrar: entrar, enviar: enviar, listarUsuarios: listarUsuarios, getAllUsers: (call, callback) => {
   console.log(usuarios);
   callback(null, usuarios);
 } });

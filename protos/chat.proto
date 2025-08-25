@@ -1,13 +1,13 @@
-syntax = "proto3"; //Specify proto3 version.
+syntax = "proto3";
 
-package unesc; //Optional: unique package name.
+package unesc;
 
 service Chat {
-    rpc join(stream Message) returns (stream Message){}
-    rpc send(Message) returns (Message){}
+    rpc entrar(stream Message) returns (stream Message){}
+    rpc enviar(Message) returns (Message){}
 
     rpc getAllUsers(Empty) returns (UserList) {}  // Tentativa Erro
-    rpc listUsers(User) returns (ListResponse) {}
+    rpc listarUsuarios(User) returns (ListarResposta) {}
 }
 
 message Message {
@@ -19,7 +19,7 @@ message User {
     string user = 1;
 }
 
-message ListResponse {
+message ListarResposta {
     int32 error = 1;
     string msg = 2;
     string users = 3;

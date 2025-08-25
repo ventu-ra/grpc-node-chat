@@ -1,7 +1,7 @@
 {
   "name": "grpcnodeserver",
   "version": "1.0.1",
-  "description": "Chat example using grpc and node",
+  "description": "Chat utilizando grpc e node, UNESC 2022 - Computacao parelela e distribuida",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +13,7 @@
     "buffers",
     "rpc"
   ],
-  "author": "",
+  "author": "Felipe Costa de Jesus e Pedro Ventura",
   "license": "MIT",
   "dependencies": {
     "@grpc/proto-loader": "^0.3.0",

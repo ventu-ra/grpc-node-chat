@@ -7,6 +7,7 @@ Check the full article in: <https://techblog.fexcofts.com/2018/07/20/grpc-nodejs
 - Install Modules:
 
     ``$ npm install``
+    ``$ npm install --save grpc @grpc/proto-loader``
 
 - Start Server:
 
