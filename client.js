@@ -3,12 +3,6 @@ var protoLoader = require("@grpc/proto-loader");
 var readline = require("readline");
 const { exit } = require("process");
 
-var data = new Date();
-
-// Formata a data e a hora
-var str_data = data.toLocaleDateString();
-var str_hora = data.toLocaleTimeString();
-
 var LGerr = false;
 
 // Leitura das linhas do terminal
@@ -70,6 +64,11 @@ function startChat() {
 
 // Quando servidor envia uma mensagem
 function onData(message) {
+  let data = new Date();
+
+  // Formata a data e a hora
+  let str_data = data.toLocaleDateString();
+  let str_hora = data.toLocaleTimeString();
 
   if (message.user == username) {
     if (!LGerr) {
@@ -89,9 +88,7 @@ function onData(message) {
 // Pergunta qual o nome do usuário quando inicializa o chat
 rl.question("Qual seu nome? ", answer => {
   username = answer;
-
   //verificaUsers(username);
-
   startChat();
 });
 
